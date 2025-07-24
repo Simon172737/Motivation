@@ -235,33 +235,89 @@ Willkommen zu meiner interaktiven Bewerbung.
     }
   });
 &lt;/script&gt;</tw-passagedata><tw-passagedata pid="2" name="Menü" tags="" position="800,450" size="100,100">:: Menü
+&lt;&lt;run UIBar.hide()&gt;&gt;
 
-&lt;p&gt;Gib ein Thema ein:&lt;/p&gt;
+&lt;!-- 🎥 Hintergrundvideo mit Ton --&gt;
+&lt;video autoplay playsinline loop id=&quot;bgVideo&quot;
+  style=&quot;position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;&quot;&gt;
+  &lt;source src=&quot;video1.mp4&quot; type=&quot;video/mp4&quot;&gt;
+  Dein Browser unterstützt kein Video.
+&lt;/video&gt;
 
-&lt;input id=&quot;themaEingabe&quot; type=&quot;text&quot; placeholder=&quot;Thema eingeben&quot;&gt;
-&lt;button id=&quot;themaButton&quot;&gt;Los ➤&lt;/button&gt;
+&lt;!-- ✨ Button-Leiste im unteren Drittel --&gt;
+&lt;div id=&quot;buttonLeiste&quot;&gt;
+	&lt;button class=&quot;thema-btn&quot; data-ziel=&quot;Kultur&quot;&gt;Kultur&lt;/button&gt;
+	&lt;button class=&quot;thema-btn&quot; data-ziel=&quot;Medien&quot;&gt;Medien&lt;/button&gt;
+	&lt;button class=&quot;thema-btn&quot; data-ziel=&quot;Forschung&quot;&gt;Forschung&lt;/button&gt;
+	&lt;button class=&quot;thema-btn&quot; data-ziel=&quot;Finanzen&quot;&gt;Finanzen&lt;/button&gt;
+	&lt;button class=&quot;thema-btn&quot; data-ziel=&quot;Storytelling&quot;&gt;Storytelling&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+#buttonLeiste {
+	position: fixed;
+	bottom: 10vh;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	z-index: 10;
+}
+
+.thema-btn {
+	font-size: 1.3em;
+	padding: 12px 28px;
+	background-color: rgba(255, 255, 255, 0.1);
+	color: white;
+	border: 2px solid rgba(255, 255, 255, 0.5);
+	border-radius: 50px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	backdrop-filter: blur(4px);
+	box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.thema-btn:hover {
+	background-color: rgba(255, 255, 255, 0.25);
+	color: #fff;
+	border-color: #fff;
+	box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+	transform: scale(1.05);
+}
+&lt;/style&gt;
 
 &lt;script&gt;
-$(document).on(&#39;click&#39;, &#39;#themaButton&#39;, function () {
-    var eingabe = $(&#39;#themaEingabe&#39;).val().trim().toLowerCase().replace(/\s+/g, &#39;&#39;);
-    
+window.addEventListener(&#39;load&#39;, () =&gt; {
+	// 🎧 Video mit Ton starten
+	const video = document.getElementById(&quot;bgVideo&quot;);
+	if (video) {
+		video.muted = false;
+		video.volume = 1.0;
+		video.play().catch(err =&gt; {
+			console.warn(&quot;Autoplay mit Ton wurde blockiert:&quot;, err);
+		});
+	}
 
-    // Erlaubte Themen mit Zielpassagen
-    var gültigeThemen = {
-        &quot;kultur&quot;: &quot;Kultur&quot;,
-        &quot;medien&quot;: &quot;Medien&quot;,
-        &quot;forschung&quot;: &quot;Forschung&quot;,
-        &quot;finanzen&quot;: &quot;Finanzen&quot;,
-        &quot;storytelling&quot;: &quot;Storytelling&quot;
-    };
-
-    if (gültigeThemen[eingabe]) {
-        SugarCube.Engine.play(gültigeThemen[eingabe]);
-    } else {
-        alert(&quot;Dieses Thema wurde nicht erkannt. Bitte versuche es erneut.&quot;);
-    }
+	// 🎯 Navigation bei Button-Klick mit Verzögerung
+	document.querySelectorAll(&quot;.thema-btn&quot;).forEach(button =&gt; {
+		button.addEventListener(&quot;click&quot;, function () {
+			const ziel = this.getAttribute(&quot;data-ziel&quot;);
+			if (ziel) {
+				setTimeout(() =&gt; {
+					if (typeof SugarCube !== &quot;undefined&quot; &amp;&amp; SugarCube.Engine) {
+						SugarCube.Engine.play(ziel);
+					} else {
+						console.warn(&quot;Navigation fehlgeschlagen:&quot;, ziel);
+					}
+				}, 100);
+			}
+		});
+	});
 });
 &lt;/script&gt;
+
 </tw-passagedata><tw-passagedata pid="3" name=":: StoryInit [init]" tags="" position="800,100" size="100,100">:: StoryInit [init]
 &lt;&lt;audio &quot;bgm&quot; src=&quot;musik.mp3&quot; &gt;&gt;
 
@@ -271,10 +327,10 @@ $(document).on(&#39;click&#39;, &#39;#themaButton&#39;, function () {
 
 </tw-passagedata><tw-passagedata pid="5" name="Forschung" tags="" position="675,625" size="100,100">[[Die Zimmermann Mensa]]
 [[Körper und Protest]]
-</tw-passagedata><tw-passagedata pid="6" name="Finanzen" tags="" position="800,625" size="100,100">[[Bankkaufmann]]
-[[Media Companies]]
+</tw-passagedata><tw-passagedata pid="6" name="Finanzen" tags="" position="800,625" size="100,100">:: Finanzen
+
+[[Bankkaufmann]]
 [[Transparenz im Museum]]
-[[Masterarbeit]]
 
 &lt;a href=&quot;javascript:void(0);&quot; onclick=&quot;SugarCube.Engine.play(&#39;Menü2&#39;)&quot; class=&quot;menu-button&quot;&gt;
   &lt;img src=&quot;https://cdn-icons-png.flaticon.com/512/25/25694.png&quot; alt=&quot;Zurück zum Menü&quot; /&gt;
@@ -349,8 +405,8 @@ $(document).on(&#39;click&#39;, &#39;#themaButton&#39;, function () {
 [[ZIVIL]]
 [[Bilder]]
 
-Mich interessieren </tw-passagedata><tw-passagedata pid="9" name="Desinformation" tags="" position="0,900" size="100,100">Bachelorarbeit hier erläutern</tw-passagedata><tw-passagedata pid="10" name="spreuXWeizen" tags="" position="125,900" size="100,100">Tätigkeiten bei spreuXweizen hier anbringen 
-</tw-passagedata><tw-passagedata pid="11" name="Die Zimmermann Mensa" tags="" position="250,900" size="100,100">Bilder noch raussuchen und das kleine video hier verlinken 
+Mich interessieren </tw-passagedata><tw-passagedata pid="9" name="Desinformation" tags="" position="0,775" size="100,100">Bachelorarbeit hier erläutern</tw-passagedata><tw-passagedata pid="10" name="spreuXWeizen" tags="" position="50,675" size="100,100">Tätigkeiten bei spreuXweizen hier anbringen 
+</tw-passagedata><tw-passagedata pid="11" name="Die Zimmermann Mensa" tags="" position="600,1050" size="100,100">Bilder noch raussuchen und das kleine video hier verlinken 
 
 
 
@@ -358,7 +414,7 @@ Mich interessieren </tw-passagedata><tw-passagedata pid="9" name="Desinformation
   src=&quot;Flad, Simon. Alte Mensa.pdf&quot; 
   style=&quot;width: calc(100vw - 40px); height: 90vh; border: none;&quot;&gt;
   Dein Browser unterstützt keine eingebetteten PDFs.
-&lt;/iframe&gt;</tw-passagedata><tw-passagedata pid="12" name="Körper und Protest" tags="" position="375,900" size="100,100">Hier noch Bilder einfügen und die Seite schön machen 
+&lt;/iframe&gt;</tw-passagedata><tw-passagedata pid="12" name="Körper und Protest" tags="" position="400,1050" size="100,100">Hier noch Bilder einfügen und die Seite schön machen 
 
 :: Körper und Protest
 
@@ -373,13 +429,13 @@ Hier kannst du die Präsentation öffnen:
 &lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;SugarCube.Engine.play(&#39;Start&#39;)&quot;&gt;🔙 Zurück zum Start&lt;/a&gt;
 
 
-</tw-passagedata><tw-passagedata pid="13" name="Bankkaufmann" tags="" position="500,900" size="100,100">Infos zu meiner Ausbildung in der Bausparkasse
+</tw-passagedata><tw-passagedata pid="13" name="Bankkaufmann" tags="" position="125,775" size="100,100">Infos zu meiner Ausbildung in der Bausparkasse
 
 Auflisten was ich von dieser Ausbildung mitgenommen habe 
-</tw-passagedata><tw-passagedata pid="14" name="Media Companies" tags="" position="625,900" size="100,100">PDF anhängen 
+</tw-passagedata><tw-passagedata pid="14" name="Media Companies" tags="" position="250,775" size="100,100">PDF anhängen 
 
 Audio dazu machen was ich an den Medienunternehmen interessant finde und wie ich diese zur persönlichen Bildung nutze 
-</tw-passagedata><tw-passagedata pid="15" name="Transparenz im Museum" tags="" position="750,900" size="100,100">&lt;style&gt;
+</tw-passagedata><tw-passagedata pid="15" name="Transparenz im Museum" tags="" position="800,1050" size="100,100">&lt;style&gt;
   html, body {
     margin: 0;
     padding: 0;
@@ -441,23 +497,66 @@ Audio dazu machen was ich an den Medienunternehmen interessant finde und wie ich
     &lt;/iframe&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-</tw-passagedata><tw-passagedata pid="16" name="Masterarbeit" tags="" position="875,900" size="100,100">kleines Video in dem ich meine Masterarbeit erkläre</tw-passagedata><tw-passagedata pid="17" name="ZIVIL" tags="" position="1000,900" size="100,100">&lt;video id=&quot;fullscreen-video&quot; autoplay muted loop playsinline&gt;
-  &lt;source src=&quot;video1.mp4&quot; type=&quot;video/mp4&quot;&gt;
-  Dein Browser unterstützt das Video-Tag nicht.
+</tw-passagedata><tw-passagedata pid="16" name="Masterarbeit" tags="" position="200,900" size="100,100">:: VideoVollbild
+&lt;&lt;run UIBar.hide()&gt;&gt;
+&lt;&lt;run document.documentElement.requestFullscreen?.()&gt;&gt;
+
+&lt;video id=&quot;videoVollbild&quot; autoplay playsinline controls style=&quot;position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 9999;&quot;&gt;
+    &lt;source src=&quot;video1.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    Dein Browser unterstützt kein Video.
 &lt;/video&gt;
 
-&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;SugarCube.Engine.play(&#39;Start&#39;)&quot;&gt;🔙 Zurück zum Start&lt;/a&gt;
+&lt;script&gt;
+document.addEventListener(&quot;DOMContentLoaded&quot;, function () {
+    const video = document.getElementById(&quot;videoVollbild&quot;);
 
-&lt;style&gt;
-  /* Vollbild-Video als Hintergrund */
-  #fullscreen-video {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1; /* Damit Buttons und Text oben bleiben */
-  }</tw-passagedata><tw-passagedata pid="18" name="Externalisation of the right to asylum" tags="" position="1125,900" size="100,100">
+    if (video) {
+        video.muted = false; // falls erlaubt: Ton aktiv
+        video.play();
+
+        // Nach Ende des Videos: zurück zur Story
+        video.addEventListener(&quot;ended&quot;, function () {
+            document.exitFullscreen?.();
+            SugarCube.Engine.play(&quot;NächstePassage&quot;); // &lt;- Passe den Namen an
+        });
+    }
+});
+&lt;/script&gt;
+
+
+
+
+
+
+kleines Video in dem ich meine Masterarbeit erkläre
+
+</tw-passagedata><tw-passagedata pid="17" name="ZIVIL" tags="" position="1000,1050" size="100,100">:: ZIVIL
+
+&lt;&lt;run UIBar.hide()&gt;&gt;
+&lt;&lt;run document.documentElement.requestFullscreen?.()&gt;&gt;
+
+&lt;video id=&quot;videoVollbild&quot; autoplay playsinline controls style=&quot;position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 9999;&quot;&gt;
+    &lt;source src=&quot;video1.mp4&quot; type=&quot;video/mp4&quot;&gt;
+    Dein Browser unterstützt kein Video.
+&lt;/video&gt;
+
+&lt;script&gt;
+document.addEventListener(&quot;DOMContentLoaded&quot;, function () {
+    const video = document.getElementById(&quot;videoVollbild&quot;);
+
+    if (video) {
+        video.muted = false; // falls erlaubt: Ton aktiv
+        video.play();
+
+        // Nach Ende des Videos: zurück zur Story
+        video.addEventListener(&quot;ended&quot;, function () {
+            document.exitFullscreen?.();
+            SugarCube.Engine.play(&quot;NächstePassage&quot;); // &lt;- Passe den Namen an
+        });
+    }
+});
+&lt;/script&gt;
+</tw-passagedata><tw-passagedata pid="18" name="Externalisation of the right to asylum" tags="" position="1200,1050" size="100,100">
 
 &lt;iframe 
   src=&quot;Essay Critical Theory.pdf&quot; 
@@ -487,7 +586,45 @@ Audio dazu machen was ich an den Medienunternehmen interessant finde und wie ich
 .zurueck-button:hover {
   background-color: #555;
 }
-&lt;/style&gt;</tw-passagedata><tw-passagedata pid="19" name="Detect" tags="" position="1400,700" size="100,100"></tw-passagedata><tw-passagedata pid="20" name="Bilder" tags="" position="1400,850" size="100,100"></tw-passagedata><tw-passagedata pid="21" name="Menü2" tags="" position="1025,400" size="100,100">:: Menü2
+&lt;/style&gt;</tw-passagedata><tw-passagedata pid="19" name="Detect" tags="" position="1400,1050" size="100,100"></tw-passagedata><tw-passagedata pid="20" name="Bilder" tags="" position="1425,775" size="100,100"></tw-passagedata><tw-passagedata pid="21" name="Menü2" tags="" position="925,450" size="100,100">:: Menü2
+
+&lt;p&gt;Gib ein Thema ein:&lt;/p&gt;
+
+&lt;input id=&quot;themaEingabe&quot; type=&quot;text&quot; placeholder=&quot;Thema eingeben&quot;&gt;
+&lt;button id=&quot;themaButton&quot;&gt;Los ➤&lt;/button&gt;
+
+
+
+
+&lt;script&gt;
+$(document).off(&#39;click&#39;, &#39;#themaButton&#39;).on(&#39;click&#39;, &#39;#themaButton&#39;, function () {
+    var eingabeFeld = $(&#39;#themaEingabe&#39;);
+    if (!eingabeFeld.length) {
+        alert(&quot;Eingabefeld fehlt.&quot;);
+        return;
+    }
+
+    var eingabe = (eingabeFeld.val() || &quot;&quot;).trim().toLowerCase().replace(/\s+/g, &#39;&#39;);
+
+    // Erlaubte Themen mit Zielpassagen
+    var gültigeThemen = {
+        &quot;kultur&quot;: &quot;Kultur&quot;,
+        &quot;medien&quot;: &quot;Medien&quot;,
+        &quot;forschung&quot;: &quot;Forschung&quot;,
+        &quot;finanzen&quot;: &quot;Finanzen&quot;,
+        &quot;storytelling&quot;: &quot;Storytelling&quot;
+    };
+
+    if (eingabe in gültigeThemen) {
+        // Gültiges Thema → weiterleiten
+        SugarCube.Engine.play(gültigeThemen[eingabe]);
+    } else {
+        // Ungültiges Thema → Hinweis, aber KEINE Weiterleitung
+        alert(&quot;Dieses Thema wurde nicht erkannt. Bitte versuche es erneut.&quot;);
+    }
+});
+&lt;/script&gt;
+</tw-passagedata><tw-passagedata pid="22" name="Menü3 mit Texteingabe" tags="" position="450,375" size="100,100">:: Menü3
 
 &lt;p&gt;Gib ein Thema ein:&lt;/p&gt;
 
