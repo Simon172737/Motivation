@@ -263,11 +263,10 @@ html, body {
 &lt;!-- 🎥 Hintergrundvideo mit Ton --&gt;
 &lt;video autoplay playsinline id=&quot;bgVideo&quot;
   style=&quot;position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;&quot;&gt;
-
 &lt;/video&gt;
 
 &lt;!-- ✨ Themen-Buttons --&gt;
-&lt;div id=&quot;buttonLeiste&quot;&gt;
+&lt;div id=&quot;buttonLeiste&quot; style=&quot;display: none;&quot;&gt;
   &lt;button class=&quot;thema-btn&quot; data-ziel=&quot;Kultur&quot;&gt;Kultur&lt;/button&gt;
   &lt;button class=&quot;thema-btn&quot; data-ziel=&quot;Medien&quot;&gt;Medien&lt;/button&gt;
   &lt;button class=&quot;thema-btn&quot; data-ziel=&quot;Recherche&quot;&gt;Recherche&lt;/button&gt;
@@ -277,7 +276,7 @@ html, body {
 &lt;/div&gt;
 
 &lt;!-- 🔄 Reset-Button --&gt;
-&lt;div id=&quot;resetLeiste&quot;&gt;
+&lt;div id=&quot;resetLeiste&quot; style=&quot;display: none;&quot;&gt;
   &lt;button id=&quot;reset-btn&quot; class=&quot;thema-btn&quot;&gt;Reset&lt;/button&gt;
 &lt;/div&gt;
 
@@ -340,6 +339,17 @@ $(document).ready(function() {
     video.play().catch(err =&gt; console.warn(&quot;Autoplay-Fehler:&quot;, err));
   }
 
+  // Buttons anzeigen (nach 20s nur beim ersten Besuch)
+  if (visits === 1) {
+    setTimeout(function () {
+      $(&quot;#buttonLeiste&quot;).fadeIn(500);
+      $(&quot;#resetLeiste&quot;).fadeIn(500);
+    }, 20000); // 20 Sekunden
+  } else {
+    $(&quot;#buttonLeiste&quot;).show();
+    $(&quot;#resetLeiste&quot;).show();
+  }
+
   // Bereits geklickte Buttons ausblenden
   $(&quot;.thema-btn&quot;).each(function () {
     const thema = $(this).data(&quot;ziel&quot;);
@@ -348,32 +358,31 @@ $(document).ready(function() {
     }
   });
 
-  // Sperre, damit nicht mehrfach schnell geklickt wird
+  // Sperre gegen mehrfaches Klicken
   let isNavigating = false;
 
-// Themenbutton-Klick
-$(document).on(&quot;click&quot;, &quot;.thema-btn&quot;, function () {
-  if (isNavigating) return;
+  // Themenbutton-Klick
+  $(document).on(&quot;click&quot;, &quot;.thema-btn&quot;, function () {
+    if (isNavigating) return;
 
-  const ziel = $(this).data(&quot;ziel&quot;);
-  if (ziel) {
-    if (typeof SugarCube !== &#39;undefined&#39; &amp;&amp; SugarCube.Engine &amp;&amp; SugarCube.Story.has(ziel)) {
-      isNavigating = true;
-      localStorage.setItem(&quot;buttonClicked_&quot; + ziel, &quot;true&quot;);
-      $(this).hide();
+    const ziel = $(this).data(&quot;ziel&quot;);
+    if (ziel) {
+      if (typeof SugarCube !== &#39;undefined&#39; &amp;&amp; SugarCube.Engine &amp;&amp; SugarCube.Story.has(ziel)) {
+        isNavigating = true;
+        localStorage.setItem(&quot;buttonClicked_&quot; + ziel, &quot;true&quot;);
+        $(this).hide();
 
-      // 🔊 Ton aktivieren für nächste Seite
-      sessionStorage.setItem(&quot;allowAudio&quot;, &quot;true&quot;);
+        // 🔊 Ton aktivieren für nächste Seite
+        sessionStorage.setItem(&quot;allowAudio&quot;, &quot;true&quot;);
 
-      SugarCube.Engine.play(ziel);
+        SugarCube.Engine.play(ziel);
 
-      setTimeout(() =&gt; { isNavigating = false; }, 1500);
-    } else {
-      alert(&quot;Die Passage &#39;&quot; + ziel + &quot;&#39; existiert nicht oder die Twine-Engine ist nicht geladen.&quot;);
+        setTimeout(() =&gt; { isNavigating = false; }, 1500);
+      } else {
+        alert(&quot;Die Passage &#39;&quot; + ziel + &quot;&#39; existiert nicht oder die Twine-Engine ist nicht geladen.&quot;);
+      }
     }
-  }
-});
-
+  });
 
   // 🔄 Reset
   $(document).on(&quot;click&quot;, &quot;#reset-btn&quot;, function () {
@@ -392,17 +401,6 @@ $(document).on(&quot;click&quot;, &quot;.thema-btn&quot;, function () {
     }
   });
 });
-
-// ⛔️ Video bei Verlassen der Passage stoppen &amp; entfernen
-//$(document).on(&#39;:passagehide&#39;, function () {
-//  const bgVideo = document.getElementById(&quot;bgVideo&quot;);
- // if (bgVideo) {
-//    bgVideo.pause();
- //   bgVideo.currentTime = 0;
- //   bgVideo.src = &quot;&quot;;
- //   bgVideo.load();
-//  }
-//});
 &lt;/script&gt;
 </tw-passagedata><tw-passagedata pid="3" name=":: StoryInit [init]" tags="" position="800,100" size="100,100">:: StoryInit [init]
 &lt;&lt;audio &quot;bgm&quot; src=&quot;musik.mp3&quot; &gt;&gt;
@@ -1567,7 +1565,6 @@ tw-passage {
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0499.jpg?w=2046&quot;,
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0512.jpg?w=2046&quot;,
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/01/dscf0080.jpg?w=2046&quot;,
-
 
     // 👇 Neue hinzugefügte Bilder
     &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0052-1.jpg?w=2048&quot;,
