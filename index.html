@@ -1553,6 +1553,13 @@ tw-passage {
 &lt;/div&gt;
 
 &lt;script&gt;
+  // Verhindert doppelte Initialisierung
+  if (window.galleryInitialized) {
+    console.warn(&quot;Galerie bereits initialisiert.&quot;);
+    return;
+  }
+  window.galleryInitialized = true;
+
   const images = [
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0522.jpg?w=3136&quot;,
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/01/dscf0077-1.jpg?w=2046&quot;,
@@ -1626,6 +1633,15 @@ tw-passage {
   document.getElementById(&quot;rightZone&quot;).addEventListener(&quot;click&quot;, function () {
     currentIndex = (currentIndex + 1) % images.length;
     showImage(currentIndex);
+  });
+&lt;/script&gt;
+
+&lt;!-- Aufräumen beim Verlassen der Galerie --&gt;
+&lt;script&gt;
+  $(document).on(&#39;:passageend&#39;, function (ev) {
+    if (ev.passage &amp;&amp; ev.passage.title !== &quot;Galerie&quot;) {
+      window.galleryInitialized = false;
+    }
   });
 &lt;/script&gt;
 
