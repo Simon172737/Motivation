@@ -1553,7 +1553,7 @@ tw-passage {
 &lt;/div&gt;
 
 &lt;script&gt;
- const images = [
+  const images = [
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0522.jpg?w=3136&quot;,
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/01/dscf0077-1.jpg?w=2046&quot;,
     &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0091.jpg?w=2048&quot;,
@@ -1565,8 +1565,6 @@ tw-passage {
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0499.jpg?w=2046&quot;,
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0512.jpg?w=2046&quot;,
     &quot;https://simon4.photo.blog/wp-content/uploads/2020/01/dscf0080.jpg?w=2046&quot;,
-
-    // 👇 Neue hinzugefügte Bilder
     &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0052-1.jpg?w=2048&quot;,
     &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0081.jpg?w=1368&quot;,
     &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0154.jpg?w=2046&quot;,
@@ -1585,10 +1583,9 @@ tw-passage {
   ];
 
   let currentIndex = 0;
-  const img = document.getElementById(&quot;galleryImage&quot;);
+  const galleryImg = document.getElementById(&quot;galleryImage&quot;);
 
   function showImage(index) {
-    // Index prüfen
     if (index &lt; 0 || index &gt;= images.length) {
       console.warn(&quot;Ungültiger Index:&quot;, index);
       return;
@@ -1598,16 +1595,15 @@ tw-passage {
     preload.src = images[index];
 
     preload.onload = () =&gt; {
-      img.style.opacity = 0;
+      galleryImg.style.opacity = 0;
       setTimeout(() =&gt; {
-        img.src = preload.src;
-        img.style.opacity = 1;
+        galleryImg.src = preload.src;
+        galleryImg.style.opacity = 1;
       }, 200);
     };
 
     preload.onerror = () =&gt; {
       console.warn(&quot;Bild konnte nicht geladen werden:&quot;, preload.src);
-      // Nächstes Bild versuchen
       const nextIndex = (index + 1) % images.length;
       if (nextIndex !== index) {
         currentIndex = nextIndex;
@@ -1616,14 +1612,12 @@ tw-passage {
     };
   }
 
-  // Nur starten, wenn Bilder vorhanden sind
   if (images.length &gt; 0) {
     showImage(currentIndex);
   } else {
     console.error(&quot;Keine Bilder in der Galerie.&quot;);
   }
 
-  // Navigation über Klickzonen
   document.getElementById(&quot;leftZone&quot;).addEventListener(&quot;click&quot;, function () {
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     showImage(currentIndex);
