@@ -151,6 +151,12 @@ tw-passage {
 
 </style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Start" tags="" position="800,300" size="100,100">&lt;&lt;run UIBar.hide()&gt;&gt;
 
+&lt;!-- Hintergrundvideo --&gt;
+&lt;video autoplay muted loop playsinline id=&quot;bg-video&quot;&gt;
+  &lt;source src=&quot;VideoStart.mp4&quot; type=&quot;video/mp4&quot;&gt;
+  Dein Browser unterstützt kein Hintergrundvideo.
+&lt;/video&gt;
+
 &lt;div id=&quot;grid-wrapper&quot;&gt;
   &lt;div id=&quot;center-box&quot;&gt;
     &lt;h2&gt;Willkommen!&lt;/h2&gt;
@@ -163,14 +169,67 @@ tw-passage {
 &lt;/div&gt;
 
 &lt;style&gt;
-  #center-box {
-    font-weight: bold;         /* Schrift fett */
-    font-size: 1,5em;            /* Schriftgröße verdoppelt */
-    text-align: center;        /* Optional: zentriert den Text */
-    line-height: 1.4;          /* Optional: bessere Lesbarkeit */
+  #bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: brightness(0.5); /* Abdunklung für besseren Kontrast */
   }
 
+  html, body {
+    margin: 0; padding: 0;
+    height: 100%;
+    overflow: hidden;
+    color: white;
+  }
 
+  #grid-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10; /* Text liegt über dem Video */
+  }
+
+  #center-box {
+    text-align: center;
+    max-width: 700px;
+    padding: 20px;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 1.4;
+  }
+
+  .thema-btn {
+    font-size: 1.3em;
+    padding: 12px 28px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    margin-top: 30px;
+  }
+
+  .thema-btn:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
+  }
 &lt;/style&gt;
 
 &lt;script&gt;
@@ -208,56 +267,6 @@ $(document).on(&#39;click&#39;, &#39;#passwortCheck&#39;, function () {
   }
 });
 &lt;/script&gt;
-
-&lt;style&gt;
-html, body {
-  margin: 0; padding: 0;
-  height: 100%;
-  overflow: hidden;
-  color: white;
-}
-
-#grid-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-}
-
-#center-box {
-  text-align: center;
-  max-width: 700px;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.thema-btn {
-  font-size: 1.3em;
-  padding: 12px 28px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-  margin-top: 30px;
-}
-
-.thema-btn:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
-  border-color: #fff;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-  transform: scale(1.05);
-}
-&lt;/style&gt;
 </tw-passagedata><tw-passagedata pid="2" name="Menü" tags="" position="800,450" size="100,100">&lt;&lt;run UIBar.hide()&gt;&gt;
 
 &lt;!-- 🎥 Hintergrundvideo mit Ton --&gt;
@@ -1433,7 +1442,7 @@ $(document).off(&#39;click&#39;, &#39;#themaButton&#39;).on(&#39;click&#39;, &#3
     }
 });
 &lt;/script&gt;
-</tw-passagedata><tw-passagedata pid="20" name="12stylesheet32" tags="" position="275,200" size="100,100">#ui-bar {
+</tw-passagedata><tw-passagedata pid="20" name="12stylesheet32" tags="" position="450,200" size="100,100">#ui-bar {
   display: none !important;
 }
 
@@ -1583,7 +1592,8 @@ tw-passage {
       &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2473.jpg?w=2048&quot;,
       &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2627.jpg?w=2046&quot;,
       &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2640.jpg?w=2046&quot;,
-      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2780.jpg?w=2046&quot;
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2780.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2473.jpg?w=2048&quot;
   ];
 
   let currentIndex = 0;
