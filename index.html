@@ -1583,7 +1583,6 @@ tw-passage {
 }
 &lt;/style&gt;
 
-&lt;!-- Galerie-Script --&gt;
 &lt;script&gt;
 $(document).on(&#39;:passagerender&#39;, function (ev) {
   if (ev.passage &amp;&amp; ev.passage.title === &quot;Galerie&quot;) {
@@ -1622,7 +1621,7 @@ $(document).on(&#39;:passagerender&#39;, function (ev) {
       &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2780.jpg?w=2046&quot;
     ];
 
-let currentIndex = 0;
+    let currentIndex = 0;
     const galleryImg = document.getElementById(&quot;galleryImage&quot;);
 
     function showImage(index) {
@@ -1635,6 +1634,7 @@ let currentIndex = 0;
       preload.src = images[index];
 
       preload.onload = () =&gt; {
+        // Bild langsam einblenden
         galleryImg.style.opacity = 0;
         setTimeout(() =&gt; {
           galleryImg.src = preload.src;
@@ -1677,7 +1677,6 @@ $(document).on(&#39;:passageend&#39;, function (ev) {
   }
 });
 &lt;/script&gt;
-
 </tw-passagedata><tw-passagedata pid="23" name="Fotografie" tags="" position="1350,475" size="100,100">&lt;!-- 🎥 Hintergrundvideo --&gt;
 &lt;video id=&quot;fullscreenVideo&quot; autoplay playsinline style=&quot;
   position: fixed;
