@@ -1622,8 +1622,8 @@ $(document).on(&#39;:passagerender&#39;, function (ev) {
       &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2780.jpg?w=2046&quot;
     ];
 
-    let currentIndex = 0;
-    const galleryImg = ev.content.querySelector(&quot;#galleryImage&quot;);
+let currentIndex = 0;
+    const galleryImg = document.getElementById(&quot;galleryImage&quot;);
 
     function showImage(index) {
       if (index &lt; 0 || index &gt;= images.length) {
@@ -1658,12 +1658,12 @@ $(document).on(&#39;:passagerender&#39;, function (ev) {
       console.error(&quot;Keine Bilder in der Galerie.&quot;);
     }
 
-    ev.content.querySelector(&quot;#leftZone&quot;).addEventListener(&quot;click&quot;, function () {
+    document.getElementById(&quot;leftZone&quot;).addEventListener(&quot;click&quot;, function () {
       currentIndex = (currentIndex - 1 + images.length) % images.length;
       showImage(currentIndex);
     });
 
-    ev.content.querySelector(&quot;#rightZone&quot;).addEventListener(&quot;click&quot;, function () {
+    document.getElementById(&quot;rightZone&quot;).addEventListener(&quot;click&quot;, function () {
       currentIndex = (currentIndex + 1) % images.length;
       showImage(currentIndex);
     });
