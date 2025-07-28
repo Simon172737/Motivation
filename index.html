@@ -149,97 +149,7 @@ tw-passage {
   margin-top: 5vh;
 }
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript">$(document).on(':passagerender', function (ev) {
-  if (ev.passage && ev.passage.title === "Galerie") {
-    if (window.galleryInitialized) {
-      console.warn("Galerie bereits initialisiert.");
-      return;
-    }
-    window.galleryInitialized = true;
-
-    const images = [
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0522.jpg?w=3136",
-      "https://simon4.photo.blog/wp-content/uploads/2020/01/dscf0077-1.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0091.jpg?w=2048",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0565.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0594.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0613.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0637.jpg?w=1366",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0052.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0499.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0512.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2020/01/dscf0080.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0052-1.jpg?w=2048",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0081.jpg?w=1368",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0154.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0160.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0534.jpg?w=3136",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0044.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0118.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2916.jpg",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf3399.jpg?w=2048",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2415.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2417.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2473.jpg?w=2048",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2627.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2640.jpg?w=2046",
-      "https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2780.jpg?w=2046"
-    ];
-
-    let currentIndex = 0;
-    const galleryImg = document.getElementById("galleryImage");
-
-    function showImage(index) {
-      if (index < 0 || index >= images.length) {
-        console.warn("Ungültiger Index:", index);
-        return;
-      }
-
-      const preload = new Image();
-      preload.src = images[index];
-
-      preload.onload = () => {
-        galleryImg.style.opacity = 0;
-        setTimeout(() => {
-          galleryImg.src = preload.src;
-          galleryImg.style.opacity = 1;
-        }, 200);
-      };
-
-      preload.onerror = () => {
-        console.warn("Bild konnte nicht geladen werden:", preload.src);
-        const nextIndex = (index + 1) % images.length;
-        if (nextIndex !== index) {
-          currentIndex = nextIndex;
-          showImage(nextIndex);
-        }
-      };
-    }
-
-    if (images.length > 0) {
-      showImage(currentIndex);
-    } else {
-      console.error("Keine Bilder in der Galerie.");
-    }
-
-    document.getElementById("leftZone").addEventListener("click", function () {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      showImage(currentIndex);
-    });
-
-    document.getElementById("rightZone").addEventListener("click", function () {
-      currentIndex = (currentIndex + 1) % images.length;
-      showImage(currentIndex);
-    });
-  }
-});
-
-$(document).on(':passageend', function (ev) {
-  if (ev.passage && ev.passage.title !== "Galerie") {
-    window.galleryInitialized = false;
-  }
-});
-</script><tw-passagedata pid="1" name="Start" tags="" position="800,300" size="100,100">&lt;&lt;run UIBar.hide()&gt;&gt;
+</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Start" tags="" position="800,300" size="100,100">&lt;&lt;run UIBar.hide()&gt;&gt;
 
 &lt;div id=&quot;grid-wrapper&quot;&gt;
   &lt;div id=&quot;center-box&quot;&gt;
@@ -1630,13 +1540,12 @@ tw-passage {
     object-fit: contain;
   }
 &lt;/style&gt;
-</tw-passagedata><tw-passagedata pid="22" name="Bildergalerie" tags="" position="1175,625" size="100,100">&lt;!-- Galerie-Container --&gt;
+</tw-passagedata><tw-passagedata pid="22" name="Bildergalerie" tags="" position="1175,625" size="100,100">&lt;!-- Galerie-HTML --&gt;
 &lt;div id=&quot;gallery&quot;
      style=&quot;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: 9999; background-color: black;&quot;&gt;
   &lt;img id=&quot;galleryImage&quot;
        style=&quot;width: 100vw; height: 100vh; object-fit: cover; transition: opacity 0.4s ease-in-out; opacity: 0;&quot; /&gt;
 
-  &lt;!-- Unsichtbare Zonen für Navigation --&gt;
   &lt;div id=&quot;leftZone&quot;
        style=&quot;position: fixed; top: 0; left: 0; width: 50vw; height: 100vh; cursor: w-resize; z-index: 10000;&quot;&gt;&lt;/div&gt;
   &lt;div id=&quot;rightZone&quot;
@@ -1648,7 +1557,6 @@ tw-passage {
   &lt;img src=&quot;https://cdn-icons-png.flaticon.com/512/25/25694.png&quot; alt=&quot;Zurück zum Menü&quot; /&gt;
 &lt;/a&gt;
 
-&lt;!-- Button-Styling --&gt;
 &lt;style&gt;
 .menu-button {
   position: fixed;
@@ -1665,17 +1573,111 @@ tw-passage {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease;
 }
-
 .menu-button:hover {
   transform: scale(1.1);
 }
-
 .menu-button img {
   width: 36px;
   height: 36px;
   object-fit: contain;
 }
 &lt;/style&gt;
+
+&lt;!-- Galerie-Script --&gt;
+&lt;script&gt;
+$(document).on(&#39;:passagerender&#39;, function (ev) {
+  if (ev.passage &amp;&amp; ev.passage.title === &quot;Galerie&quot;) {
+    if (window.galleryInitialized) {
+      console.warn(&quot;Galerie bereits initialisiert.&quot;);
+      return;
+    }
+    window.galleryInitialized = true;
+
+    const images = [
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0522.jpg?w=3136&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/01/dscf0077-1.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0091.jpg?w=2048&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0565.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0594.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0613.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0637.jpg?w=1366&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0052.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0499.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0512.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/01/dscf0080.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0052-1.jpg?w=2048&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0081.jpg?w=1368&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0154.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf0160.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0534.jpg?w=3136&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0044.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2020/02/dscf0118.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2916.jpg&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf3399.jpg?w=2048&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2415.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2417.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2473.jpg?w=2048&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2627.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2640.jpg?w=2046&quot;,
+      &quot;https://simon4.photo.blog/wp-content/uploads/2019/12/dscf2780.jpg?w=2046&quot;
+    ];
+
+    let currentIndex = 0;
+    const galleryImg = ev.content.querySelector(&quot;#galleryImage&quot;);
+
+    function showImage(index) {
+      if (index &lt; 0 || index &gt;= images.length) {
+        console.warn(&quot;Ungültiger Index:&quot;, index);
+        return;
+      }
+
+      const preload = new Image();
+      preload.src = images[index];
+
+      preload.onload = () =&gt; {
+        galleryImg.style.opacity = 0;
+        setTimeout(() =&gt; {
+          galleryImg.src = preload.src;
+          galleryImg.style.opacity = 1;
+        }, 200);
+      };
+
+      preload.onerror = () =&gt; {
+        console.warn(&quot;Bild konnte nicht geladen werden:&quot;, preload.src);
+        const nextIndex = (index + 1) % images.length;
+        if (nextIndex !== index) {
+          currentIndex = nextIndex;
+          showImage(nextIndex);
+        }
+      };
+    }
+
+    if (images.length &gt; 0) {
+      showImage(currentIndex);
+    } else {
+      console.error(&quot;Keine Bilder in der Galerie.&quot;);
+    }
+
+    ev.content.querySelector(&quot;#leftZone&quot;).addEventListener(&quot;click&quot;, function () {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(currentIndex);
+    });
+
+    ev.content.querySelector(&quot;#rightZone&quot;).addEventListener(&quot;click&quot;, function () {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    });
+  }
+});
+
+// Reset bei Verlassen der Galerie
+$(document).on(&#39;:passageend&#39;, function (ev) {
+  if (ev.passage &amp;&amp; ev.passage.title !== &quot;Galerie&quot;) {
+    window.galleryInitialized = false;
+  }
+});
+&lt;/script&gt;
+
 </tw-passagedata><tw-passagedata pid="23" name="Fotografie" tags="" position="1350,475" size="100,100">&lt;!-- 🎥 Hintergrundvideo --&gt;
 &lt;video id=&quot;fullscreenVideo&quot; autoplay playsinline style=&quot;
   position: fixed;
